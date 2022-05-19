@@ -22,9 +22,9 @@ namespace ETickets.Repository.RepositoryClasses
         {
             return await FindByCondition(cinema => cinema.Id.Equals(cinemaId)).FirstOrDefaultAsync();
         }
-        public void CreateCinema(Cinema cinema)
+        public async Task CreateCinema(Cinema cinema)
         {
-            Create(cinema);
+            await Create(cinema);
         }
         public void UpdateCinema(int cinemaId)
         {

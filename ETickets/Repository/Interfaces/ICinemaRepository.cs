@@ -9,7 +9,7 @@ namespace ETickets.Repository.Interfaces
     {
         Task<IEnumerable<Cinema>> GetCinemasAsync();
         Task<Cinema> GetCinemaByIdAsync(int cinemaI);
-        void CreateCinema(Cinema cinema);
+        Task CreateCinema(Cinema cinema);
         void UpdateCinema(int cinemaId);
         void DeleteCinema(int cinemaId);
     }

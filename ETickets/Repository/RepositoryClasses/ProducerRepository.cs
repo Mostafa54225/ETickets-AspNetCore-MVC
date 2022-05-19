@@ -22,9 +22,9 @@ namespace ETickets.Repository.RepositoryClasses
         {
             return await FindByCondition(producer => producer.Id.Equals(producerId)).FirstOrDefaultAsync();
         }
-        public void CreateProducer(Producer producer)
+        public async Task CreateProducer(Producer producer)
         {
-            Create(producer);
+            await Create (producer);
         }
         public void UpdateProducer(int producerId)
         {

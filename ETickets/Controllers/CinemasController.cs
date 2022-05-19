@@ -5,19 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using ETickets.Data;
 using Microsoft.EntityFrameworkCore;
+using ETickets.Repository.Interfaces;
 namespace ETickets.Controllers
 {
     public class CinemasController : Controller
     {
-        private readonly AppDBContext _context;
-
-        public CinemasController(AppDBContext context)
+        private IRepositoryWrapper _repository;
+        public CinemasController(IRepositoryWrapper repository)
         {
-            _context = context;
+            _repository = repository;
         }
         public async Task<IActionResult> Index()
         {
-            var cinemas = await _context.Cinemas.ToListAsync();
+            var cinemas = await _repository.Cinema.GetCinemasAsync();
             return View(cinemas);
         }
     }

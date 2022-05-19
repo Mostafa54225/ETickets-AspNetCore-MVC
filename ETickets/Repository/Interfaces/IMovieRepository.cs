@@ -7,9 +7,9 @@ namespace ETickets.Repository.Interfaces
 {
     public interface IMovieRepository: IRepositoryBase<Movie>
     {
-        Task<IEnumerable<Movie>> GetMoviesAsync();
+        IEnumerable<Movie> GetMoviesAsync();
         Task<Movie> GetMovieByIdAsync(int movieId);
-        void CreateMovie(Movie movie);
+        Task CreateMovie(Movie movie);
         void UpdateMovie(int movieId);
         void DeleteMovie(int movieId);
     }

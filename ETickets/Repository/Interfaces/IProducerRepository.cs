@@ -9,7 +9,7 @@ namespace ETickets.Repository.Interfaces
     {
         Task<IEnumerable<Producer>> GetProducersAsync();
         Task<Producer> GetProducerByIdAsync(int producerId);
-        void CreateProducer(Producer producer);
+        Task CreateProducer(Producer producer);
         void UpdateProducer(int producerId);
         void DeleteProducer(int proucerId);
     }

@@ -18,7 +18,7 @@ namespace ETickets.Repository
         public IQueryable<T> FindAll() => AppDBContext.Set<T>().AsNoTracking();
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression) => AppDBContext.Set<T>().Where(expression).AsNoTracking();
 
-        public void Create(T entity) => AppDBContext.Set<T>().Add(entity);
+        public async Task Create(T entity) => await AppDBContext.Set<T>().AddAsync(entity);
         public void Update(T entity) => AppDBContext.Set<T>().Update(entity);
         public void Delete(T entity) => AppDBContext.Set<T>().Remove(entity);
     }

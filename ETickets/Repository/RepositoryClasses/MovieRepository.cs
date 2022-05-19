@@ -14,17 +14,17 @@ namespace ETickets.Repository.RepositoryClasses
         public MovieRepository(AppDBContext appDBContext): base(appDBContext)
         {
         }
-        public async Task<IEnumerable<Movie>> GetMoviesAsync()
+        public IEnumerable<Movie> GetMoviesAsync()
         {
-            return await FindAll().OrderBy(movie => movie.Name).ToListAsync();
+            return FindAll().OrderBy(movie => movie.Name).ToList();
         }
         public async Task<Movie> GetMovieByIdAsync(int movieId)
         {
             return await FindByCondition(movie => movie.Id.Equals(movieId)).FirstOrDefaultAsync();
         }
-        public void CreateMovie(Movie movie)
+        public async Task CreateMovie(Movie movie)
         {
-            Create(movie);
+            await Create(movie);
         }
         public void UpdateMovie(int movieId)
         {

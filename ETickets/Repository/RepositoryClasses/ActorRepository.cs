@@ -6,7 +6,7 @@ using ETickets.Models;
 using ETickets.Data;
 using ETickets.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Http;
 namespace ETickets.Repository.RepositoryClasses
 {
     public class ActorRepository: RepositoryBase<Actor>, IActorRepository
@@ -24,14 +24,20 @@ namespace ETickets.Repository.RepositoryClasses
             return await FindByCondition(actor => actor.Id.Equals(actorId)).FirstOrDefaultAsync();
         }
 
-        public void CreateActor(Actor actor)
+        public async Task CreateActor(Actor actor, IFormFile file)
         {
-            Create(actor);
+            if(file != null)
+                actor.ProfilePicture = Utils.Helper.ConvertToBytes(file);
+            await Create(actor);
         }
-        public void UpdateActor(int actorId)
+        public async Task UpdateActor(int actorId, Actor newActor, IFormFile file)
         {
-            Actor actor = FindByCondition(actor => actor.Id.Equals(actorId)).FirstOrDefault();
-            Update(actor);
+            Actor actor = await FindByCondition(actor => actor.Id.Equals(actorId)).FirstOrDefaultAsync();
+            if (file != null)
+                newActor.ProfilePicture = Utils.Helper.ConvertToBytes(file);
+            else if (actor.ProfilePicture != null)
+                newActor.ProfilePicture = actor.ProfilePicture;
+             Update(newActor);
         }
         public void DeleteActor(int actorId)
         {
