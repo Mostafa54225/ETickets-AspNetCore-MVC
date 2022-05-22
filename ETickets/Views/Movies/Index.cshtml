@@ -15,22 +15,27 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.Name
-                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                    {
-                                        <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-                                    }
+                                    <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+
                                 </h5>
                             </p>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img src="@item.Image" width="100%" alt="@item.Name">
+                        @if (item.Image != null)
+                        {
+                            <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" alt="@item.Name" style="max-width: 200px"/>
+                        }
+                        else
+                        {
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="@item.Name" style="max-width: 200px" />
+                        }
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">
                             <p class="card-text">@item.Description</p>
                             <p class="card-text"><b>Cinema: </b>@item.Cinema.Name</p>
-                            @*<p class="card-text"><b>Category: </b>@item.MovieCategory</p>*@
+                            
                             <p class="card-text"><b>Start Date: </b>@item.StartDate.ToString("dd MMM yy")</p>
                             <p class="card-text"><b>End Date: </b>@item.EndDate.ToString("dd MMM yy")</p>
                             <p class="card-text ">
@@ -71,3 +76,7 @@
         </div>
     }
 </div>
+
+
+@await Html.PartialAsync("_CreateItem", "Movies")
+

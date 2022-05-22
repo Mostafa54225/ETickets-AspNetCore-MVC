@@ -21,5 +21,12 @@ namespace ETickets.Repository
         public async Task Create(T entity) => await AppDBContext.Set<T>().AddAsync(entity);
         public void Update(T entity) => AppDBContext.Set<T>().Update(entity);
         public void Delete(T entity) => AppDBContext.Set<T>().Remove(entity);
+
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = AppDBContext.Set<T>();
+            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return await query.ToListAsync();
+        }
     }
 }

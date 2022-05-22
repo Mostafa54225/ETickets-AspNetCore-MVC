@@ -17,8 +17,11 @@ namespace ETickets.Models
         public byte[] ProfilePicture { get; set; }
 
         [Display(Name = "Full Name")]
+        [Required(ErrorMessage = "Full name is required")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Full Name must be between 3 and 50 charcters")]
         public string FullName { get; set; }
 
+        [Required(ErrorMessage = "Bio is required")]
         [Display(Name = "Bio")]
         public string Bio { get; set; }
         // Relationships

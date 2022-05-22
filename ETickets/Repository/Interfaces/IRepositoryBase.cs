@@ -10,6 +10,7 @@ namespace ETickets.Repository
     {
         IQueryable<T> FindAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
         Task Create(T entity);
         void Update(T entity);
         void Delete(T entity);

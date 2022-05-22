@@ -14,7 +14,7 @@ namespace ETickets.Controllers
     public class ActorsController : Controller
     {
 
-        private IRepositoryWrapper _repository;
+        private readonly IRepositoryWrapper _repository;
         public ActorsController(IRepositoryWrapper repository)
         {
             _repository = repository;
@@ -46,7 +46,7 @@ namespace ETickets.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var actorDetails = await _repository.Actor.GetActorByIdAsync(id);
-            if (actorDetails == null) return View("Empty");
+            if (actorDetails == null) return View("NotFound");
             return View(actorDetails);
         }
 
